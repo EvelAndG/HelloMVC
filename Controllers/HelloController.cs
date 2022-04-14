@@ -36,7 +36,19 @@ namespace HelloMVC.Controllers
             {
                 greeting = "Hola ";
             }
-           return greeting+" "+name;
+            if (language.Equals("German"))
+            {
+                greeting = "Hallo ";
+            }
+            if (language.Equals("French"))
+            {
+                greeting = "Salut ";
+            }
+            if (language.Equals("Japanese"))
+            {
+                greeting = "Kon'nichiwa ";
+            }
+            return greeting+" "+name;
         }      
 
         //Hello
@@ -50,11 +62,8 @@ namespace HelloMVC.Controllers
             {
                 formValue = Request.Form["languages"].ToString();
             }
-            // CreateMessage(greeting, name);
-            //return Content(string.Format("<h1>{0} {1}</h1>",greeting, name), "text/html");
             return Content(CreateMessage(formValue, name), "text/html");
         }
-
 
         //Alter route to controller to be: /Hello/Aloha
         // [Route("/Hello/Aloha")]
@@ -64,9 +73,7 @@ namespace HelloMVC.Controllers
         public IActionResult Index2(string name)
         {
             return Content(string.Format("<h1>Hello, {0}</h1>", name), "text/html");
-
         }
-
         public IActionResult Goodbye()
         {
             return Content("Goodbye World");

@@ -9,7 +9,7 @@ namespace HelloMVC.Controllers
         {
             string html = "<form method='post'>" +
                 "<input type ='text' name ='name' />" +
-                "<select id='languages'>" +
+                "<select id='languages' name='languages'>" +
                 "<option value='English'>English</option>"+
                 "<option value='Spanish'>Spanish</option>" +
                 "<option value='German'>German</option>" +
@@ -20,22 +20,39 @@ namespace HelloMVC.Controllers
 
             //(Content to return, specify content type)
             //Browser will not render html unless specified as html
-            return Content(html, "text/html");
+            
+            return Content(html, "text/html");          
 
         }
 
-       //public static createMessage() ????
-
-      
+       public static string CreateMessage(string language, string name)
+        {
+            string greeting = language;
+            if (language.Equals("English"))
+            {
+                greeting = "Hello, ";
+            }
+            if (language.Equals("Spanish"))
+            {
+                greeting = "Hola ";
+            }
+           return greeting+" "+name;
+        }      
 
         //Hello
         [Route("/Hello")]
         [HttpPost]
         public IActionResult Display(string greeting = "Hello", string name = "World")
         {
-            return Content(string.Format("<h1>{0} {1}</h1>",greeting, name), "text/html");
+            string formValue = "";
 
-
+            if (!string.IsNullOrEmpty(Request.Form["languages"]))
+            {
+                formValue = Request.Form["languages"].ToString();
+            }
+            // CreateMessage(greeting, name);
+            //return Content(string.Format("<h1>{0} {1}</h1>",greeting, name), "text/html");
+            return Content(CreateMessage(formValue, name), "text/html");
         }
 
 

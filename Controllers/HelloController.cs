@@ -24,12 +24,16 @@ namespace HelloMVC.Controllers
 
         }
 
+       //public static createMessage() ????
+
+      
+
         //Hello
         [Route("/Hello")]
         [HttpPost]
-        public IActionResult Display(string name = "World")
+        public IActionResult Display(string greeting = "Hello", string name = "World")
         {
-            return Content(string.Format("<h1>Hello, {0}</h1>", name), "text/html");
+            return Content(string.Format("<h1>{0} {1}</h1>",greeting, name), "text/html");
 
 
         }
